@@ -11,7 +11,7 @@ let devConfig = {
       {
         test: /\.scss$/,
         exclude: /node_modules/,
-        loaders: ['raw-loader', 'sass-loader']
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
   },

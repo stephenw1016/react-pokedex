@@ -1,9 +1,7 @@
-html, body {
-  box-sizing: border-box;
-  margin: 0;
-  border: 5px solid red;
-}
+// variables
+@import 'partials/color-variables';
 
-h1 {
-  color: red;
-}
+// components
+@import 'partials/navigation';
+
+@import 'partials/base';

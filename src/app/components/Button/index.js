@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// @flow
+import * as React from 'react';
 
-export default class Button extends Component {
-  constructor (props) {
+
+type Props = {
+  clickAction: function,
+  label: string
+};
+
+export default class Button extends React.Component<Props> {
+  constructor (props: Props) {
     super(props);
   }
 
-  render () {
+  render (): React.Node {
     return <button onClick={this.props.clickAction}>{this.props.label}</button>;
   }
 }
-
-Button.propTypes = {
-  clickAction: PropTypes.func.isRequired,
-  label: PropTypes.string.isRequired
-};

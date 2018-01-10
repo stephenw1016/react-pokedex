@@ -3,7 +3,7 @@ import * as React from 'react';
 
 
 type Props = {
-  clickAction: function,
+  clickAction: Function,
   label: string
 };
 

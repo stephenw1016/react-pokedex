@@ -1,22 +1,28 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
+// @flow
+import * as React from 'react';
 import Button from '../Button';
 
+type Props = {
+  criteria: string,
+  placeholder: string,
+  onSearch: Function
+};
 
-export default class SearchInput extends Component {
-  constructor (props) {
+type State = {
+  criteria: string
+};
+
+export default class SearchInput extends React.Component<Props, State> {
+  constructor (props: Props) {
     super(props);
-
-    const initialCriteria = this.props.criteria || '';
-    this.state = { criteria: initialCriteria };
+    this.state = { criteria: this.props.criteria || '' };
   }
 
-  handleChange (event) {
+  handleChange (event: SyntheticInputEvent<HTMLInputElement>) {
     this.setState({ criteria: event.target.value });
   }
 
-  handleSearch (event) {
+  handleSearch (event: SyntheticMouseEvent<HTMLButtonElement>) {
     this.props.onSearch(this.state.criteria, event);
   }
 
@@ -29,10 +35,4 @@ export default class SearchInput extends Component {
       </div>
     );
   }
-};
-
-SearchInput.propTypes = {
-  criteria: PropTypes.string,
-  placeholder: PropTypes.string,
-  onSearch: PropTypes.func.isRequired
 };

@@ -1,18 +1,20 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
 import Buttons from '../Buttons';
 import Results from '../Results';
 import SearchInput from '../SearchInput';
 
+type Props = {
+  appTitle: string,
+};
 
-export default class NavBar extends Component {
-  constructor (props) {
+export default class NavBar extends React.Component<Props> {
+  constructor (props: Props) {
     super(props);
   }
 
-  handleSearch (a, e) {
-    console.log(a, e);
+  handleSearch (a: string, event: SyntheticMouseEvent<HTMLButtonElement>) {
+    console.log(a, event);
   }
 
   render () {
@@ -24,14 +26,10 @@ export default class NavBar extends Component {
     return(
       <nav>
         <h1>{this.props.appTitle}</h1>
-        <Buttons buttons={buttons}/>
-        <SearchInput placeholder="Search for Pokemon..." onSearch={this.handleSearch}/>
+        <Buttons buttons={buttons} />
+        <SearchInput placeholder="Search for Pokemon..." onSearch={this.handleSearch} />
         <Results />
       </nav>
     );
   }
 }
-
-NavBar.propTypes = {
-  appTitle: PropTypes.string.isRequired
-};

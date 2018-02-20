@@ -1,10 +1,9 @@
 // @flow
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 type Props = {
-  pokemon: number
+  pokemon: { name: string }
 };
 
 export default class PokemonCard extends React.Component<Props> {

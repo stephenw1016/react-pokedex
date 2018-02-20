@@ -3,14 +3,16 @@ import * as React from 'react';
 import axios from 'axios';
 import PokemonCard from '../PokemonCard';
 
-type Props = {
+type Props = {};
 
+type State = {
+  pokemon: Array<{name: string}>
 };
 
 const devUrl = './data/all-pokemon.json';
 const prodUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=10000';
 
-export default class PokemonList extends React.Component<Props> {
+export default class PokemonList extends React.Component<Props, State> {
   constructor (props: Props) {
     super(props);
     this.state = { pokemon: [] };

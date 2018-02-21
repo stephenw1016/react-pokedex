@@ -1,35 +1,41 @@
 // @flow
 import * as React from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { loadAllPokemon } from '../../actions';
+
 import PokemonCard from '../PokemonCard';
 
-type Props = {};
+type Props = {
+  pokemon: Array<{name: string}>,
+  loadAllPokemon: Function
+};
 
 type State = {
   pokemon: Array<{name: string}>
 };
 
-const devUrl = './data/all-pokemon.json';
-const prodUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=10000';
+const mapStateToProps = (state, ownProps) => {
+  return { pokemon: state.pokemonList.items };
+};
 
-export default class PokemonList extends React.Component<Props, State> {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return { loadAllPokemon: dispatch(loadAllPokemon()) };
+};
+
+class PokemonList extends React.Component<Props, State> {
   constructor (props: Props) {
     super(props);
     this.state = { pokemon: [] };
   }
 
-  componentDidMount () {
-    axios.get(devUrl)
-      .then(response => this.setState({ pokemon: response.data.results }));
-  }
-
   render (): React.Node {
     return <ul>{
-      this.state.pokemon.map(pokemon => {
+      this.props.pokemon.map(pokemon => {
         return <li key={pokemon.name}><PokemonCard pokemon={pokemon} /></li>;
       })
     }</ul>;
   }
 }
 
+export default connect(mapStateToProps, mapDispatchToProps)(PokemonList);
 

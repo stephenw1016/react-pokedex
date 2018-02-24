@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 
 type Props = {
-  pokemon: { name: string }
+  pokemon: { id: number, name: string }
 };
 
 export default class PokemonCard extends React.Component<Props> {
@@ -12,7 +12,18 @@ export default class PokemonCard extends React.Component<Props> {
   }
 
   render (): React.Node {
-    let pokemon = this.props.pokemon;
-    return <Link to={`/pokemon/${pokemon.name}`}>{pokemon.name}</Link>;
+    let pokemon: Object = this.props.pokemon;
+
+    return (
+      <div className="pokemon-card">
+        <div className="card-top">
+          <img src={`http://res.cloudinary.com/dwnebujkh/image/upload/v1473910425/pokemon/${pokemon.id}.png`} />
+        </div>
+        <div className="card-bottom">
+          <span>{pokemon.name}</span>
+          <Link to={`/pokemon/${pokemon.id}`}>Details</Link>
+        </div>
+      </div>
+    );
   }
 }

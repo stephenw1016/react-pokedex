@@ -1,10 +1,10 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 
 const Results = () => {
   return (
     <span className="search-results-count">
-      <span className="count">949</span>
+      <span className="count">200</span>
       <span> results</span>
     </span>
   )

@@ -1,0 +1,75 @@
+$imageSize: 100px;
+$darkBorderColor: #333;
+$borderRadius: 5px;
+
+.pokemon-card {
+  border: 1px solid #eceaea;
+  border-bottom: 1px solid #CCC;
+  border-radius: $borderRadius;
+  box-shadow: inset 0 -1px rgba(0,0,0,.15);
+  display: flex;
+  flex-wrap: wrap;
+  height: 275px;
+  margin: 10px;
+  width: 200px;
+
+  &.selected .card-top {
+    background: #ff2727;
+  }
+
+  img {
+    background: #fff;
+    border: 1px solid $darkBorderColor;
+    border-radius: 50%;
+    box-shadow: inset 0 3px 4px rgba(0,0,0,0.5), inset 0 -3px 8px rgba(0,0,0,0.5);
+    height: $imageSize;
+    left: 40px;
+    margin: 10px;
+    position: relative;
+    top: 75px;
+    vertical-align: middle;
+    width: $imageSize;
+  }
+
+  span {
+    align-self: center;
+    color: $darkBorderColor;
+    font-size: 1.3em;
+    font-weight: bold;
+    justify-self: center;
+    line-height: 1em;
+    padding-top: 40px;
+    text-align: center;
+    text-transform: capitalize;
+    width: 100%;
+  }
+
+  a {
+    border: 1px solid #ccc;
+    color: #888;
+    cursor: pointer;
+    border-radius: 15px;
+    font-size: .9em;
+    padding: 4px 12px;
+    text-decoration: none;
+  }
+
+  .card-top {
+    background: #fff;
+    border-radius: $borderRadius $borderRadius 0 0;
+    height: 50%;
+    width: 100%;
+  }
+
+  .card-bottom {
+    align-items: center;
+    background-color: #fff;
+    border-top: 1px solid $darkBorderColor;
+    border-radius: 0 0 $borderRadius $borderRadius;
+    display: flex;
+    flex-direction: column;
+    height: 49%;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+}

@@ -24,6 +24,15 @@ export function loadAllPokemon () {
 
     return axios.get(devUrl)
       .then(response => (response.data || {}).results)
+      .then(results => {
+        return results.reduce((allPokemon, pokemon) => {
+          pokemon.id = pokemon.url.match(/.*\/(\d+)\//)[1];
+          if (pokemon.id < 201) {
+            allPokemon.push(pokemon);
+          }
+          return allPokemon;
+        }, []);
+      })
       .then(allPokemon => dispatch(receiveAllPokemon(allPokemon)));
   };
 }

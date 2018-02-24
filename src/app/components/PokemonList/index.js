@@ -11,14 +11,14 @@ type Props = {
 };
 
 type State = {
-  pokemon: Array<{name: string}>
+  pokemon: Array<{ id: number, name: string}>
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return { pokemon: state.pokemonList.items };
+const mapStateToProps = ({pokemonList}) => {
+  return { pokemon: pokemonList.items };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return { loadAllPokemon: dispatch(loadAllPokemon()) };
 };
 
@@ -30,9 +30,7 @@ class PokemonList extends React.Component<Props, State> {
 
   render (): React.Node {
     return <ul>{
-      this.props.pokemon.map(pokemon => {
-        return <li key={pokemon.name}><PokemonCard pokemon={pokemon} /></li>;
-      })
+      this.props.pokemon.map(pokemon => <li key={pokemon.name}><PokemonCard pokemon={pokemon} /></li>)
     }</ul>;
   }
 }

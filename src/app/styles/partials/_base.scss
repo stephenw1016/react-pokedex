@@ -1,9 +1,15 @@
 html, body {
+  background: #f8f8f8;
   font-family: Helvetica, sans-serif;
   font-size: 100%;
+  margin: 0;
 }
 
 ul {
+  align-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -15,7 +21,6 @@ li {
 
 a {
   text-decoration: none;
-  color: #289cd8;
 }
 
 

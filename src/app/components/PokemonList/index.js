@@ -6,7 +6,7 @@ import { loadAllPokemon } from '../../actions';
 import PokemonCard from '../PokemonCard';
 
 type Props = {
-  pokemon: Array<{name: string}>,
+  pokemon: Array<{id: number, name: string}>,
   loadAllPokemon: Function
 };
 
@@ -25,7 +25,6 @@ const mapDispatchToProps = (dispatch) => {
 class PokemonList extends React.Component<Props, State> {
   constructor (props: Props) {
     super(props);
-    this.state = { pokemon: [] };
   }
 
   render (): React.Node {

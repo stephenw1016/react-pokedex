@@ -6,20 +6,25 @@ import { loadAllPokemon } from '../../actions';
 import PokemonCard from '../PokemonCard';
 
 type Props = {
+  loadAllPokemon: Function,
   pokemon: Array<{id: number, name: string}>,
-  loadAllPokemon: Function
+  requestPage: Function
 };
 
 type State = {
-  pokemon: Array<{ id: number, name: string}>
+  pokemon: Array<{id: number, name: string}>
 };
 
 const mapStateToProps = ({pokemonList}) => {
-  return { pokemon: pokemonList.items };
+  return {
+    pokemon: pokemonList.pages[pokemonList.currentPage] || []
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return { loadAllPokemon: dispatch(loadAllPokemon()) };
+  return {
+    loadAllPokemon: dispatch(loadAllPokemon())
+  };
 };
 
 class PokemonList extends React.Component<Props, State> {
@@ -28,9 +33,12 @@ class PokemonList extends React.Component<Props, State> {
   }
 
   render (): React.Node {
-    return <ul>{
-      this.props.pokemon.map(pokemon => <li key={pokemon.name}><PokemonCard pokemon={pokemon} /></li>)
-    }</ul>;
+    return (
+      <ul>
+        {this.props.pokemon.map(pokemon =>
+          <li key={pokemon.id}><PokemonCard pokemon={pokemon} /></li>)}
+      </ul>
+    );
   }
 }
 

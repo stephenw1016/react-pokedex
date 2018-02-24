@@ -12,7 +12,7 @@ export default class PokemonCard extends React.Component<Props> {
   }
 
   render (): React.Node {
-    let pokemon: Object = this.props.pokemon;
+    let pokemon = this.props.pokemon;
 
     return (
       <div className="pokemon-card">

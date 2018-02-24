@@ -1,4 +1,21 @@
+// @flow
 import axios from 'axios';
+
+export const SEARCH = 'SEARCH';
+export function search (searchTerm: string) {
+  return {
+    type: SEARCH,
+    searchTerm
+  };
+}
+
+export const REQUEST_PAGE = 'REQUEST_PAGE';
+export function requestPage (page: number) {
+  return {
+    type: REQUEST_PAGE,
+    page
+  };
+}
 
 export const REQUEST_ALL_POKEMON = 'REQUEST_ALL_POKEMON';
 function requestAllPokemon () {
@@ -19,7 +36,7 @@ export function loadAllPokemon () {
   const devUrl = './data/all-pokemon.json';
   const prodUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=10000';
 
-  return function (dispatch) {
+  return function (dispatch: Function) {
     dispatch(requestAllPokemon());
 
     return axios.get(devUrl)
@@ -33,7 +50,10 @@ export function loadAllPokemon () {
           return allPokemon;
         }, []);
       })
-      .then(allPokemon => dispatch(receiveAllPokemon(allPokemon)));
+      .then(allPokemon => {
+        dispatch(receiveAllPokemon(allPokemon));
+        dispatch(requestPage(1));
+      });
   };
 }
 

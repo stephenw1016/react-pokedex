@@ -1,9 +1,8 @@
 // @flow
 import * as React from 'react';
-import Button from '../Button';
 
 type Props = {
-  criteria: string,
+  criteria?: string,
   placeholder: string,
   onSearch: Function
 };
@@ -19,19 +18,21 @@ export default class SearchInput extends React.Component<Props, State> {
   }
 
   handleChange (event: SyntheticInputEvent<HTMLInputElement>) {
-    this.setState({ criteria: event.target.value });
+    let searchTerm: string = event.target.value;
+
+    this.setState({ criteria: searchTerm });
+    this.props.onSearch(searchTerm);
   }
 
-  handleSearch (event: SyntheticMouseEvent<HTMLButtonElement>) {
-    this.props.onSearch(this.state.criteria, event);
-  }
-
-  render () {
+  render (): React.Node {
     return (
       <div className="search-controls">
-        <input type="search" placeholder={this.props.placeholder} autoComplete="off"
-          value={this.state.criteria} onChange={(e) => this.handleChange(e)} />
-        <Button label="Go!" clickAction={(e) => this.handleSearch(e)} />
+        <input type="search"
+               autoComplete="off"
+               placeholder={this.props.placeholder}
+               value={this.state.criteria}
+               onChange={(e) => this.handleChange(e)}
+        />
       </div>
     );
   }

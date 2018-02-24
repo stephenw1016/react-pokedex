@@ -6,12 +6,6 @@ type Props = {
   label: string
 };
 
-export default class Button extends React.Component<Props> {
-  constructor (props: Props) {
-    super(props);
-  }
-
-  render (): React.Node {
-    return <button onClick={this.props.clickAction}>{this.props.label}</button>;
-  }
+export default (props: Props) => {
+  return <button onClick={props.clickAction}>{props.label}</button>;
 }

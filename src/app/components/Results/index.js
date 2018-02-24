@@ -1,11 +1,14 @@
 // @flow
 import * as React from 'react';
 
-const Results = () => {
+type Props = {
+  count: number
+}
+
+const Results = (props: Props) => {
   return (
     <span className="search-results-count">
-      <span className="count">200</span>
-      <span> results</span>
+      <span className="count">{props.count} results</span>
     </span>
   )
 };

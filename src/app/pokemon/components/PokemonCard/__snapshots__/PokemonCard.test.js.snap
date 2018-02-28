@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render pokemon 1`] = `
+<div
+  className="pokemon-card"
+>
+  <div
+    className="card-top"
+  >
+    <img
+      src="http://res.cloudinary.com/dwnebujkh/image/upload/v1473910425/pokemon/1.png"
+    />
+  </div>
+  <div
+    className="card-bottom"
+  >
+    <span>
+      bulbasaur
+    </span>
+    <a
+      href="/pokemon/1"
+      onClick={[Function]}
+    >
+      Details
+    </a>
+  </div>
+</div>
+`;

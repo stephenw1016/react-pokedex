@@ -9,6 +9,7 @@ import {
   SEARCH,
 } from "./types";
 
+const isProdMode = false;
 
 export function search (searchTerm: string) {
   return {
@@ -51,13 +52,12 @@ function receivePokemon (pokemon) {
 }
 
 export function loadAllPokemon () {
-  const devUrl = './data/all-pokemon.json';
-  const prodUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=10000';
+  const url = isProdMode ? 'https://pokeapi.co/api/v2/pokemon/?limit=10000' : './data/all-pokemon.json';
 
   return function (dispatch: Function) {
     dispatch(requestAllPokemon());
 
-    return axios.get(devUrl)
+    return axios.get(url)
       .then(response => (response.data || {}).results)
       .then(results => {
         return results.reduce((allPokemon, pokemon) => {
@@ -76,8 +76,7 @@ export function loadAllPokemon () {
 }
 
 export function loadPokemon (id: number) {
-  const devUrl = `./data/pokemon-${id}.json`;
-  const prodUrl = `https://pokeapi.co/api/v2/pokemon/${id}/`;
+  const url = isProdMode ? `https://pokeapi.co/api/v2/pokemon/${id}/` : `./data/pokemon-${id}.json`;
 
   return function (dispatch: Function) {
     dispatch(requestPokemon());
@@ -94,7 +93,7 @@ export function loadPokemon (id: number) {
       };
     };
 
-    return axios.get(prodUrl)
+    return axios.get(url)
       .then(response => response.data)
       .then(convertPokemon)
       .then(allPokemon => dispatch(receivePokemon(allPokemon)));

@@ -20,41 +20,46 @@ const defaultState = {
 
 function pokemonList (state = defaultState, action) {
   switch (action.type) {
+
     case SEARCH: {
       let searchTerm = action.searchTerm.toLocaleLowerCase();
       let items = searchTerm ? state.allPokemon.filter(item => item.name.includes(searchTerm)) : state.allPokemon;
 
-      return Object.assign({}, state, {
-        pages: createPages(items, state.pageSize)
-      });
+      return { ...state, pages: createPages(items, state.pageSize) };
     }
+
     case REQUEST_POKEMON: {
-      return Object.assign({}, state, {
-        loading: true
-      });
+      return { ...state, loading: true };
     }
+
     case RECEIVE_POKEMON: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         loading: false,
         selectedPokemon: action.pokemon
-      });
+      };
     }
+
     case REQUEST_PAGE: {
       let requestedPage = action.page;
       let isValidPage = state.pages.hasOwnProperty(requestedPage);
 
-      return isValidPage ? Object.assign({}, state, { currentPage: requestedPage }) : state;
+      return isValidPage ? { ...state, currentPage: requestedPage } : state;
     }
+
     case REQUEST_ALL_POKEMON: {
-      return Object.assign({}, state, { isLoading: true });
+      return { ...state, isLoading: true };
     }
+
     case RECEIVE_ALL_POKEMON: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         allPokemon: action.items,
         isLoading: false,
         pages: createPages(action.items, state.pageSize)
-      });
+      };
     }
+
     default: {
       return state;
     }

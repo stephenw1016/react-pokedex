@@ -1,7 +1,15 @@
 // @flow
 import axios from 'axios';
+import {
+  RECEIVE_ALL_POKEMON,
+  RECEIVE_POKEMON,
+  REQUEST_PAGE,
+  REQUEST_ALL_POKEMON,
+  REQUEST_POKEMON,
+  SEARCH,
+} from "./types";
 
-export const SEARCH = 'SEARCH';
+
 export function search (searchTerm: string) {
   return {
     type: SEARCH,
@@ -9,7 +17,6 @@ export function search (searchTerm: string) {
   };
 }
 
-export const REQUEST_PAGE = 'REQUEST_PAGE';
 export function requestPage (page: number) {
   return {
     type: REQUEST_PAGE,
@@ -17,18 +24,29 @@ export function requestPage (page: number) {
   };
 }
 
-export const REQUEST_ALL_POKEMON = 'REQUEST_ALL_POKEMON';
 function requestAllPokemon () {
   return {
     type: REQUEST_ALL_POKEMON
   };
 }
 
-export const RECEIVE_ALL_POKEMON = 'RECEIVE_ALL_POKEMON';
+function requestPokemon () {
+  return {
+    type: REQUEST_POKEMON
+  };
+}
+
 function receiveAllPokemon (items) {
   return {
     type: RECEIVE_ALL_POKEMON,
     items
+  };
+}
+
+function receivePokemon (pokemon) {
+  return {
+    type: RECEIVE_POKEMON,
+    pokemon
   };
 }
 
@@ -53,6 +71,34 @@ export function loadAllPokemon () {
       .then(allPokemon => {
         dispatch(receiveAllPokemon(allPokemon));
         dispatch(requestPage(1));
+      });
+  };
+}
+
+export function loadPokemon (id: number) {
+  const url = `./data/pokemon-${id}.json`;
+
+  return function (dispatch: Function) {
+    dispatch(requestPokemon());
+
+    return axios.get(url)
+      .then(response => response.data)
+      .then(results => {
+        return {
+          id: results.id,
+          name: results.name,
+          height: results.height,
+          weight: results.weight,
+          stats: results.stats.map(stat => {
+            return {
+              name: stat.stat.name,
+              value: stat.base_stat
+            }
+          })
+        };
+      })
+      .then(allPokemon => {
+        dispatch(receivePokemon(allPokemon));
       });
   };
 }

@@ -1,5 +1,6 @@
 // @flow
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 import Buttons from '../Buttons';
 import Results from '../Results';
@@ -9,6 +10,7 @@ import {connect} from "react-redux";
 
 type Props = {
   appTitle: string,
+  currentItems: number,
   currentPage: number,
   requestPage: Function,
   search: Function,
@@ -19,7 +21,8 @@ type Props = {
 const mapStateToProps = ({pokemonList}) => {
   return {
     currentPage: pokemonList.currentPage,
-    totalItems: pokemonList.items.length,
+    totalItems: pokemonList.allPokemon.length,
+    currentItems: (pokemonList.pages[pokemonList.currentPage] || []).length,
     searchTerm: pokemonList.searchTerm
   };
 };
@@ -49,6 +52,7 @@ class NavBar extends React.Component<Props> {
   }
 
   render (): React.Node {
+    const listViewRoute = '/';
     const buttons = [
       { label: 'Previous', clickAction: this.handlePreviousClick.bind(this) },
       { label: 'Next', clickAction: this.handleNextClick.bind(this) },
@@ -56,10 +60,12 @@ class NavBar extends React.Component<Props> {
 
     return (
       <nav>
-        <h1>{this.props.appTitle}</h1>
+        <Link to={listViewRoute}>
+          <h1>{this.props.appTitle}</h1>
+        </Link>
         <Buttons buttons={buttons} />
         <SearchInput criteria={this.props.searchTerm} placeholder="Search for Pokemon..." onSearch={this.handleSearch.bind(this)} />
-        <Results count={this.props.totalItems}/>
+        <Results current={this.props.currentItems} total={this.props.totalItems}/>
       </nav>
     );
   }

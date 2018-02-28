@@ -2,13 +2,14 @@
 import * as React from 'react';
 
 type Props = {
-  count: number
+  current: number,
+  total: number
 }
 
-const Results = (props: Props) => {
+const Results = ({current, total}: Props) => {
   return (
     <span className="search-results-count">
-      <span className="count">{props.count} results</span>
+      <span className="count">showing {current} of {total}</span>
     </span>
   )
 };

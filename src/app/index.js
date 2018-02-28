@@ -6,10 +6,10 @@ import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import thunkMiddleWare from 'redux-thunk';
 
-import NavBar from './components/NavBar';
-import PokemonList from './components/PokemonList';
-import PokemonDetail from './components/PokemonDetail';
-import rootReducer from './reducers';
+import NavBar from './pokemon/components/NavBar';
+import PokemonList from './pokemon/components/PokemonList';
+import PokemonDetail from './pokemon/components/PokemonDetail';
+import rootReducer from './pokemon/reducers';
 
 import './styles/main.scss';
 

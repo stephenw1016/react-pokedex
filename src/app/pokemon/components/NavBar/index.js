@@ -18,22 +18,6 @@ type Props = {
   totalItems: number
 };
 
-const mapStateToProps = ({pokemonList}) => {
-  return {
-    currentPage: pokemonList.currentPage,
-    totalItems: pokemonList.allPokemon.length,
-    currentItems: (pokemonList.pages[pokemonList.currentPage] || []).length,
-    searchTerm: pokemonList.searchTerm
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    requestPage: (page: number ) => dispatch(requestPage(page)),
-    search: (searchTerm: string ) => dispatch(search(searchTerm))
-  };
-};
-
 class NavBar extends React.Component<Props> {
   constructor (props: Props) {
     super(props);
@@ -70,5 +54,21 @@ class NavBar extends React.Component<Props> {
     );
   }
 }
+
+const mapStateToProps = ({pokemon: {pokemonList}}) => {
+  return {
+    currentPage: pokemonList.currentPage,
+    totalItems: pokemonList.allPokemon.length,
+    currentItems: (pokemonList.pages[pokemonList.currentPage] || []).length,
+    searchTerm: pokemonList.searchTerm
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    requestPage: (page: number ) => dispatch(requestPage(page)),
+    search: (searchTerm: string ) => dispatch(search(searchTerm))
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

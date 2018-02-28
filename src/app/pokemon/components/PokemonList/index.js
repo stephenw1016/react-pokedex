@@ -1,29 +1,15 @@
 // @flow
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { loadAllPokemon } from '../../actions';
 
 import PokemonCard from '../PokemonCard';
 
 type Props = {
   loadAllPokemon: Function,
-  pokemon: Array<{id: number, name: string}>,
-  requestPage: Function
+  pokemon: Array<{id: number, name: string}>
 };
 
-const mapStateToProps = ({pokemonList}) => {
-  return {
-    pokemon: pokemonList.pages[pokemonList.currentPage] || []
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loadAllPokemon: dispatch(loadAllPokemon())
-  };
-};
-
-function PokemonList ({pokemon}: Props) {
+export function PokemonList ({pokemon}: Props) {
   return (
     <ul>
       {pokemon.map(pokemonListItem =>
@@ -34,5 +20,11 @@ function PokemonList ({pokemon}: Props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PokemonList);
+const mapStateToProps = ({pokemon: {pokemonList}}) => {
+  return {
+    pokemon: pokemonList.pages[pokemonList.currentPage] || []
+  };
+};
+
+export default connect(mapStateToProps)(PokemonList);
 

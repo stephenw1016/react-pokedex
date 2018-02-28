@@ -82,9 +82,8 @@ function createPages (items: Array<{id: number, name: string}>, maxPageSize = 1)
   }, {});
 }
 
-
-const rootReducer = combineReducers({
+const pokemon = combineReducers({
   pokemonList
 });
 
-export default rootReducer;
+export default pokemon;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render }  from 'react-dom';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import thunkMiddleWare from 'redux-thunk';
@@ -9,24 +9,26 @@ import thunkMiddleWare from 'redux-thunk';
 import NavBar from './pokemon/components/NavBar';
 import PokemonList from './pokemon/components/PokemonList';
 import PokemonDetail from './pokemon/components/PokemonDetail';
-import rootReducer from './pokemon/reducers';
+import pokemon from './pokemon/reducers';
+import { loadAllPokemon } from './pokemon/actions';
 
 import './styles/main.scss';
 
 const loggerMiddleware = createLogger();
 
 const store = createStore(
-  rootReducer,
-  applyMiddleware(
-    thunkMiddleWare,
-    loggerMiddleware
-  )
+  combineReducers({pokemon}),
+  applyMiddleware(thunkMiddleWare, loggerMiddleware)
 );
 
 class App extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.state = { appTitle: 'React Pokedex' };
+  }
+
+  componentDidMount () {
+    store.dispatch(loadAllPokemon());
   }
 
   render () {

@@ -10,3 +10,6 @@ import 'redux-thunk';
 
 // HTTP
 import 'axios';
+
+// Dataviz
+import 'recharts';

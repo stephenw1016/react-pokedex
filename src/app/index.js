@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render }  from 'react-dom';
-import { HashRouter, Route, } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
@@ -35,9 +35,10 @@ class App extends Component {
         <HashRouter>
           <main>
             <NavBar appTitle={this.state.appTitle} />
-            <Route exact path="/" component={PokemonList} />
-            <Route exact path="/pokemon" component={PokemonList} />
-            <Route exact path="/pokemon/:name" component={PokemonDetail} />
+            <Switch>
+              <Route exact path="/pokemon/:id" component={PokemonDetail} />
+              <Route path="*" component={PokemonList} />
+            </Switch>
           </main>
         </HashRouter>
       </Provider>

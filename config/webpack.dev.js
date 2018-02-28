@@ -1,5 +1,6 @@
 let webpackMerge = require('webpack-merge');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
+let FlowBabelWebpackPlugin = require('flow-babel-webpack-plugin');
 let commonConfig = require('./webpack.common.js');
 let helpers = require('./helpers');
 
@@ -24,7 +25,8 @@ let devConfig = {
   },
 
   plugins: [
-    new ExtractTextPlugin('[name].css')
+    new ExtractTextPlugin('[name].css'),
+    new FlowBabelWebpackPlugin(),
   ],
 
   devServer: {

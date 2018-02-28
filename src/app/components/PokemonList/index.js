@@ -11,10 +11,6 @@ type Props = {
   requestPage: Function
 };
 
-type State = {
-  pokemon: Array<{id: number, name: string}>
-};
-
 const mapStateToProps = ({pokemonList}) => {
   return {
     pokemon: pokemonList.pages[pokemonList.currentPage] || []
@@ -27,19 +23,15 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-class PokemonList extends React.Component<Props, State> {
-  constructor (props: Props) {
-    super(props);
-  }
-
-  render (): React.Node {
-    return (
-      <ul>
-        {this.props.pokemon.map(pokemon =>
-          <li key={pokemon.id}><PokemonCard pokemon={pokemon} /></li>)}
-      </ul>
-    );
-  }
+function PokemonList ({pokemon}: Props) {
+  return (
+    <ul>
+      {pokemon.map(pokemonListItem =>
+        <li key={pokemonListItem.id}>
+          <PokemonCard pokemon={pokemonListItem} />
+        </li>)}
+    </ul>
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PokemonList);

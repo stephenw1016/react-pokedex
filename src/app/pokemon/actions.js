@@ -81,25 +81,22 @@ export function loadPokemon (id: number) {
   return function (dispatch: Function) {
     dispatch(requestPokemon());
 
+    let convertPokemon = pokemon => {
+      return {
+        id: pokemon.id,
+        name: pokemon.name,
+        height: pokemon.height,
+        weight: pokemon.weight,
+        stats: pokemon.stats.map(stat => {
+          return { name: stat.stat.name, value: stat.base_stat };
+        })
+      };
+    };
+
     return axios.get(url)
       .then(response => response.data)
-      .then(results => {
-        return {
-          id: results.id,
-          name: results.name,
-          height: results.height,
-          weight: results.weight,
-          stats: results.stats.map(stat => {
-            return {
-              name: stat.stat.name,
-              value: stat.base_stat
-            }
-          })
-        };
-      })
-      .then(allPokemon => {
-        dispatch(receivePokemon(allPokemon));
-      });
+      .then(convertPokemon)
+      .then(allPokemon => dispatch(receivePokemon(allPokemon)));
   };
 }
 

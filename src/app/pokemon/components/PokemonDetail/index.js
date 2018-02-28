@@ -14,18 +14,6 @@ type Props = {
   loadPokemon: Function
 };
 
-const mapStateToProps = ({pokemonList}) => {
-  return {
-    pokemon: pokemonList.selectedPokemon
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loadPokemon: dispatch(loadPokemon(1))
-  };
-};
-
 function PokemonDetail ({pokemon}: Props) {
   if (!pokemon) {
     return <div>No Detail Available</div>;
@@ -40,5 +28,17 @@ function PokemonDetail ({pokemon}: Props) {
      </ul>
   );
 }
+
+const mapStateToProps = ({pokemon: {pokemonList}}) => {
+  return {
+    pokemon: pokemonList.selectedPokemon
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadPokemon: dispatch(loadPokemon(1))
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PokemonDetail);

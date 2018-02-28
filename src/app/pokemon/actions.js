@@ -76,7 +76,8 @@ export function loadAllPokemon () {
 }
 
 export function loadPokemon (id: number) {
-  const url = `./data/pokemon-${id}.json`;
+  const devUrl = `./data/pokemon-${id}.json`;
+  const prodUrl = `https://pokeapi.co/api/v2/pokemon/${id}/`;
 
   return function (dispatch: Function) {
     dispatch(requestPokemon());
@@ -93,7 +94,7 @@ export function loadPokemon (id: number) {
       };
     };
 
-    return axios.get(url)
+    return axios.get(prodUrl)
       .then(response => response.data)
       .then(convertPokemon)
       .then(allPokemon => dispatch(receivePokemon(allPokemon)));

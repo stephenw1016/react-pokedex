@@ -1,8 +1,8 @@
 // @flow
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { RadarChart, PolarGrid, Radar, PolarAngleAxis, PolarRadiusAxis, Tooltip } from 'recharts';
 import { loadPokemon } from "../../actions";
-
 type Props = {
   pokemon: {
     id: number,
@@ -16,15 +16,24 @@ type Props = {
 
 function PokemonDetail ({pokemon}: Props) {
   if (!pokemon) {
-    return <div>No Detail Available</div>;
+    return <div>Loading Pokemon Info...</div>;
   }
 
   return (
-    <ul>
+    <ul className="detailView">
        <li>ID: {pokemon.id}</li>
        <li>Name: {pokemon.name}</li>
        <li>Height: {pokemon.height}</li>
        <li>Weight: {pokemon.weight}</li>
+       <li>
+         <RadarChart outerRadius={100} width={500} height={250} data={pokemon.stats}>
+           <PolarGrid />
+           <PolarAngleAxis dataKey="name" />
+           <PolarRadiusAxis angle={60} domain={[0, 'auto']} tickCount={4} />
+           <Radar name={pokemon.name} dataKey="value" fill="green" fillOpacity={0.5} />
+           <Tooltip />
+         </RadarChart>
+       </li>
      </ul>
   );
 }
@@ -35,9 +44,9 @@ const mapStateToProps = ({pokemon: {pokemonList}}) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, {match: {params}}) => {
   return {
-    loadPokemon: dispatch(loadPokemon(1))
+    loadPokemon: dispatch(loadPokemon(params.id))
   };
 };
 

@@ -14,7 +14,11 @@ import { loadAllPokemon } from './pokemon/actions';
 
 import './styles/main.scss';
 
-const loggerMiddleware = createLogger();
+const loggerMiddleware = createLogger({
+  collapsed: true,
+  duration: true,
+  timestamp: false
+});
 
 const store = createStore(
   combineReducers({pokemon}),
@@ -24,7 +28,6 @@ const store = createStore(
 class App extends Component {
   constructor (props) {
     super(props);
-    this.state = { appTitle: 'React Pokedex' };
   }
 
   componentDidMount () {
@@ -36,7 +39,7 @@ class App extends Component {
       <Provider store={store}>
         <HashRouter>
           <main>
-            <NavBar appTitle={this.state.appTitle} />
+            <NavBar appTitle="React Pokedex" />
             <Switch>
               <Route exact path="/pokemon/:id" component={PokemonDetail} />
               <Route path="*" component={PokemonList} />

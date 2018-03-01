@@ -55,7 +55,8 @@ class NavBar extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = ({pokemon: {pokemonList}}) => {
+const mapStateToProps = ({pokemon}) => {
+  console.log(pokemon);
   return {
     currentPage: pokemonList.currentPage,
     totalItems: pokemonList.allPokemon.length,
